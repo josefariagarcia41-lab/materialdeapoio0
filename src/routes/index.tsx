@@ -12,6 +12,8 @@ const WA_PAY = `https://wa.me/244974249435?text=${encodeURIComponent(WA_MSG)}`;
 const WA_SUPPORT = "https://wa.me/244974249435";
 const EXPRESS = "972029484";
 const IBAN = "004000005037942810104";
+const TITULAR = "José Garcia Faria";
+const BANCO = "";
 
 const TITLE = "Preparação Psicotécnica MININT — Rumo à Aprovação";
 const DESC = "Material de preparação para testes psicotécnicos: raciocínio lógico, sequências, atenção e mais. Apenas 1.000 Kz, entrega pelo WhatsApp.";
@@ -167,8 +169,21 @@ function Index() {
               <button onClick={() => copy(IBAN, "iban")} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline">
                 <Copy className="h-4 w-4" /> {copied === "iban" ? "Copiado!" : "Copiar IBAN"}
               </button>
+              <div className="mt-4 border-t pt-3 text-left">
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Titular da conta</p>
+                <p className="font-display text-sm font-bold text-primary">{TITULAR}</p>
+                {BANCO ? (
+                  <>
+                    <p className="mt-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Banco</p>
+                    <p className="font-display text-sm font-bold text-primary">{BANCO}</p>
+                  </>
+                ) : null}
+              </div>
             </div>
           </div>
+          <p className="mt-4 text-center text-xs text-muted-foreground">
+            Caso o Express tenha atingido o limite, paga por IBAN.
+          </p>
           <ol className="mt-8 space-y-3">
             {steps.map((s, i) => (
               <li key={i} className="flex gap-4 rounded-xl bg-card p-4 shadow-card">
