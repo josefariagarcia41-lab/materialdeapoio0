@@ -13,7 +13,7 @@ const WA_SUPPORT = "https://wa.me/244974249435";
 const EXPRESS = "972029484";
 const IBAN = "004000005037942810104";
 const TITULAR = "José Garcia Faria";
-const BANCO = "";
+const BANCO = "BAI — Banco Angolano de Investimentos";
 
 const TITLE = "Preparação Psicotécnica MININT — Rumo à Aprovação";
 const DESC = "Material de preparação para testes psicotécnicos: raciocínio lógico, sequências, atenção e mais. Apenas 1.000 Kz, entrega pelo WhatsApp.";
