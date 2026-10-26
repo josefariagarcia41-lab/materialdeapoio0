@@ -7,10 +7,11 @@ import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const WA_MSG =
-  "Olá! Quero adquirir o material de preparação psicotécnica do MININT. Já efetuei o pagamento de 1.000 Kz via Express. Vou enviar o comprovativo para confirmação e posterior receção do material.";
+  "Olá! Quero adquirir o material de preparação psicotécnica do MININT. Já efetuei o pagamento de 1.000 Kz. Vou enviar o comprovativo para confirmação e posterior receção do material.";
 const WA_PAY = `https://wa.me/244974249435?text=${encodeURIComponent(WA_MSG)}`;
 const WA_SUPPORT = "https://wa.me/244974249435";
 const EXPRESS = "972029484";
+const IBAN = "004000005037942810104";
 
 const TITLE = "Preparação Psicotécnica MININT — Rumo à Aprovação";
 const DESC = "Material de preparação para testes psicotécnicos: raciocínio lógico, sequências, atenção e mais. Apenas 1.000 Kz, entrega pelo WhatsApp.";
@@ -41,7 +42,7 @@ const contents = [
 ];
 
 const steps = [
-  "Envia o valor de 1.000 Kz através do serviço Express para o número indicado.",
+  "Envia o valor de 1.000 Kz através do serviço Express ou por transferência bancária para o IBAN indicado.",
   "Confirma que a operação foi concluída com sucesso.",
   "Guarda o comprovativo do pagamento.",
   "Clica no botão abaixo para contactar o apoio pelo WhatsApp.",
@@ -50,18 +51,18 @@ const steps = [
 
 const faqs = [
   ["Quanto custa o material?", "O material custa 1.000 Kz."],
-  ["Como posso pagar?", "Podes pagar através do serviço Express, utilizando o número indicado na página."],
+  ["Como posso pagar?", "Podes pagar através do serviço Express, utilizando o número indicado na página, ou por transferência bancária para o IBAN indicado."],
   ["Como recebo o material?", "Após a confirmação do pagamento, o material será enviado pelo WhatsApp."],
   ["A compra garante aprovação no concurso?", "Não. O material destina-se à preparação e ao treino. A aprovação depende do desempenho do candidato e dos critérios oficiais do concurso."],
   ["O material é oficial do Ministério do Interior?", "Não. Trata-se de um material educativo independente de preparação."],
 ];
 
 function Index() {
-  const [copied, setCopied] = useState(false);
-  const copy = () => {
-    navigator.clipboard?.writeText(EXPRESS);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const [copied, setCopied] = useState("");
+  const copy = (value: string, key: string) => {
+    navigator.clipboard?.writeText(value);
+    setCopied(key);
+    setTimeout(() => setCopied(""), 2000);
   };
 
   return (
@@ -152,12 +153,21 @@ function Index() {
       <section id="pagar" className="scroll-mt-16 bg-muted py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-5">
           <h2 className="section-title">COMO PAGAR?</h2>
-          <div className="mt-8 rounded-2xl border-2 border-gold bg-card p-6 text-center shadow-card">
-            <p className="text-sm text-muted-foreground">Número para pagamento via Express</p>
-            <p className="mt-1 font-display text-4xl font-extrabold tracking-wider text-primary">{EXPRESS}</p>
-            <button onClick={copy} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline">
-              <Copy className="h-4 w-4" /> {copied ? "Copiado!" : "Copiar número"}
-            </button>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border-2 border-gold bg-card p-6 text-center shadow-card">
+              <p className="text-sm text-muted-foreground">Pagamento via Express</p>
+              <p className="mt-1 font-display text-3xl font-extrabold tracking-wider text-primary sm:text-4xl">{EXPRESS}</p>
+              <button onClick={() => copy(EXPRESS, "express")} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+                <Copy className="h-4 w-4" /> {copied === "express" ? "Copiado!" : "Copiar número"}
+              </button>
+            </div>
+            <div className="rounded-2xl border-2 border-gold bg-card p-6 text-center shadow-card">
+              <p className="text-sm text-muted-foreground">Ou transferência bancária — IBAN</p>
+              <p className="mt-1 font-display text-lg font-extrabold tracking-wide text-primary break-all sm:text-xl">{IBAN}</p>
+              <button onClick={() => copy(IBAN, "iban")} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+                <Copy className="h-4 w-4" /> {copied === "iban" ? "Copiado!" : "Copiar IBAN"}
+              </button>
+            </div>
           </div>
           <ol className="mt-8 space-y-3">
             {steps.map((s, i) => (
