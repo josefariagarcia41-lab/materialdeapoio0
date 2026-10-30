@@ -204,3 +204,8 @@ html { scroll-behavior: smooth; }
 .hero-bg h1 span {
   text-shadow: 0 0 30px color-mix(in oklab, var(--gold) 38%, transparent);
 }
+
+/* Hide Lovable badge */
+#lovable-badge {
+  display: none !important;
+}
