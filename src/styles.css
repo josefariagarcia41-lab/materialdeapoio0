@@ -159,8 +159,8 @@
 @theme inline {
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
-  --font-display: "Montserrat", sans-serif;
-  --font-body: "Source Sans 3", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
   --shadow-card: 0 8px 24px -12px color-mix(in oklab, var(--primary) 25%, transparent);
 }
 @utility hero-bg {
@@ -194,3 +194,13 @@
 @utility animate-rise { animation: rise .7s ease-out both; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 html { scroll-behavior: smooth; }
+
+
+/* Tipografia de destaque para a primeira secção */
+.hero-bg h1 {
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.hero-bg h1 span {
+  text-shadow: 0 0 30px color-mix(in oklab, var(--gold) 38%, transparent);
+}
