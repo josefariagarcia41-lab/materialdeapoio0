@@ -1,5 +1,21 @@
-import { createStartHandler, defaultStreamHandler } from '@tanstack/react-start/server';
+type ServerEntry = {
+  fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
+};
 
-export default createStartHandler({
-  handler: defaultStreamHandler,
-});
+let serverEntryPromise: Promise<ServerEntry> | undefined;
+
+async function getServerEntry(): Promise<ServerEntry> {
+  if (!serverEntryPromise) {
+    serverEntryPromise = import('@tanstack/react-start/server-entry').then(
+      (module) => (module.default ?? module) as ServerEntry,
+    );
+  }
+  return serverEntryPromise;
+}
+
+export default {
+  async fetch(request: Request, env: unknown, ctx: unknown): Promise<Response> {
+    const handler = await getServerEntry();
+    return await handler.fetch(request, env, ctx);
+  },
+};
